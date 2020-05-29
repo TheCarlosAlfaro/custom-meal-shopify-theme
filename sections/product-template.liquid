@@ -15,6 +15,26 @@
   {%- assign compare_at_price = current_variant.compare_at_price -%}
   {%- assign price = current_variant.price -%}
 
+  {% comment %}
+  My custom variables
+   {% endcomment %}
+   {% for tag in product.tags %}
+
+      {% case tag %}
+    {% when 'min5' %}
+      {%- assign min_quantity = '1' -%}
+
+      {% when 'min12' %}
+      {%- assign min_quantity = '12' -%}
+
+    {% when 'gain' %}
+     {%- assign meal_type = 'gain' -%}
+    {% when 'lean' %}
+     {%- assign meal_type = 'lean' -%}
+
+  {% endcase %}
+  {% endfor %}
+
   {% case section.settings.media_size %}
     {% when 'small' %}
       {%- assign product_media_width = 'medium-up--one-third' -%}
@@ -168,6 +188,22 @@
               </div>
             {% endunless %}
 
+
+
+     {% if meal_type == 'lean' %}
+            <div class="selector-wrapper js product-form__item">
+              <label>CARBOHYDRATES</label>
+              <select required class="required" id="carbohydrates" name="properties[CARBOHYDRATES]" class="product-form__variants no-js">
+                <option value="Jazmin Rice (2oz)">Jazmin Rice (2oz)</option>
+                <option value="Brown Rice (2oz)">Brown Rice (2oz)</option>
+                <option value="Mash Sweet Potato (2oz)">Mash Sweet Potato (2oz)</option>
+              </select>
+            </div>
+             {% endif %}
+
+
+
+
             <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
               {% for variant in product.variants %}
                 <option value="{{ variant.id }}"
@@ -175,15 +211,23 @@
                 >
                   {{ variant.title }}  {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
                 </option>
+
               {% endfor %}
+
             </select>
+
+
+
+
+
+
 
             {% if section.settings.show_quantity_selector %}
               <div class="product-form__controls-group">
                 <div class="product-form__item">
                   <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
                   <input type="number" id="Quantity-{{ section.id }}"
-                    name="quantity" value="1" min="1" pattern="[0-9]*"
+                    name="quantity" value="{{min_quantity}}" min="{{min_quantity}}" pattern="[0-9]*"
                     class="product-form__input product-form__input--quantity" data-quantity-input
                   >
                 </div>
@@ -191,18 +235,14 @@
             {% endif %}
 
 
+            <div class="product-single__description rte">
+              {{ product.description }}
+            </div>
 
 
-            {% if product.id == 4462289748026 %}
-            <p class="line-item-property__field">
-              <label>CARBOHYDRATES</label>
-              <select required class="required" id="carbohydrates" name="properties[CARBOHYDRATES]">
-                <option value="Jazmin Rice (2oz)">Jazmin Rice (2oz)</option>
-                <option value="Brown Rice (2oz)">Brown Rice (2oz)</option>
-                <option value="Mash Sweet Potato (2oz)">Mash Sweet Potato (2oz)</option>
-              </select>
-            </p>
-             {% endif %}
+
+
+
 
             <div class="product-form__error-message-wrapper product-form__error-message-wrapper--hidden{% if section.settings.enable_payment_button %} product-form__error-message-wrapper--has-payment-button{% endif %}"
               data-error-message-wrapper
@@ -262,9 +302,7 @@
           aria-hidden="true"
         >{{ 'products.product.loader_label' | t }}</p>
 
-        <div class="product-single__description rte">
-          {{ product.description }}
-        </div>
+
 
         {% if section.settings.show_share_buttons %}
           {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}

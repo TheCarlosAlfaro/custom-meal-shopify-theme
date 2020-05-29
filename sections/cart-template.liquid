@@ -39,7 +39,11 @@
 
                     <ul class="product-details{% if item.product.has_only_default_variant and property_size == 0 %} hide{% endif %}" data-cart-item-details aria-label="{{ 'cart.label.product_details' | t }}">
                       {%- for option in variant_options -%}
-                        <li class="product-details__item product-details__item--variant-option{% if item.product.has_only_default_variant %} hide{% endif %}" data-cart-item-option>{{ option.name }}: {{ option.value }}</li>
+                        <li class="product-details__item product-details__item--variant-option {% if item.product.has_only_default_variant %} hide{% endif %}" data-cart-item-option>
+                          <span class="product-details__item-label">{{ option.name }}: </span>
+
+                          {{ option.value }}
+                        </li>
                       {%- endfor -%}
 
                       {%- comment -%}
@@ -273,9 +277,18 @@
                   class="cart__submit btn btn--secondary"
                   value="{{ 'cart.general.update' | t }}">
                 {%- endunless -%}
+
+
+
+                <h1 class="min-5-message {% if cart.item_count > 4 %} {{"hide"}} {% endif %}">Yo! we only accept orders with a minimun of 5 meals</h1>
+
+
                 <input type="submit" name="checkout"
-                  class="cart__submit btn btn--small-wide"
+                  class="cart__submit btn btn--small-wide {% if cart.item_count < 5 %} {{"hide"}} {% endif %}"
                   value="{{ 'cart.general.checkout' | t }}">
+
+
+
               </div>
 
               <div class="cart__error-message-wrapper hide" role="alert" data-cart-error-message-wrapper>
