@@ -5630,7 +5630,13 @@ theme.Cart = (function () {
           var $optionElement = this.$itemOptionTemplate.clone();
 
           $optionElement
-            .text(option.name + ': ' + option.value)
+            .html(
+              '<span class="product-details__item-label">' +
+                option.name +
+                ': ' +
+                '</span>' +
+                option.value
+            )
             .removeClass(classes.hide);
 
           return $optionElement[0];
@@ -6721,8 +6727,9 @@ theme.Product = (function () {
         variantOptionListHTML =
           variantOptionListHTML +
           '<li class="product-details__item product-details__item--variant-option">' +
+          '<span class="product-details__property-label">' +
           variantOption.name +
-          ': ' +
+          ': </span>' +
           variantOption.value +
           '</li>';
       });
