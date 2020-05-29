@@ -18,6 +18,8 @@
   {% comment %}
   My custom variables
    {% endcomment %}
+
+   {%- assign min_quantity = '1' -%}
    {% for tag in product.tags %}
 
       {% case tag %}
@@ -148,6 +150,10 @@
             {% include 'product-price', variant: current_variant, show_vendor: section.settings.show_vendor %}
           </div>
 
+          <div class="product-single__description rte">
+            {{ product.description }}
+          </div>
+
           {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
             <div class="product__policies rte" data-product-policies>
               {%- if shop.taxes_included -%}
@@ -158,6 +164,9 @@
               {%- endif -%}
             </div>
           {%- endif -%}
+
+
+
 
           {% capture "form_classes" -%}
             product-form product-form-{{ section.id }}
@@ -172,7 +181,7 @@
               <div class="product-form__controls-group">
                 {% for option in product.options_with_values %}
                   <div class="selector-wrapper js product-form__item">
-                    <label {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
+                    <label class="product-details__item-label" {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
                       {{ option.name }}
                     </label>
                     <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input"
@@ -191,15 +200,29 @@
 
 
      {% if meal_type == 'lean' %}
-            <div class="selector-wrapper js product-form__item">
-              <label>CARBOHYDRATES</label>
-              <select required class="required" id="carbohydrates" name="properties[CARBOHYDRATES]" class="product-form__variants no-js">
-                <option value="Jazmin Rice (2oz)">Jazmin Rice (2oz)</option>
-                <option value="Brown Rice (2oz)">Brown Rice (2oz)</option>
-                <option value="Mash Sweet Potato (2oz)">Mash Sweet Potato (2oz)</option>
-              </select>
-            </div>
-             {% endif %}
+        <div class="selector-wrapper js product-form__item">
+          <label class="product-details__item-label">Carbohydrates</label>
+          <select required class="required" id="carbohydrates" name="properties[Carbohydrates]" class="product-form__variants no-js">
+            <option value="Jazmine Rice (2oz)">Jazmine Rice (2oz)</option>
+            <option value="Brown Rice (2oz)">Brown Rice (2oz)</option>
+            <option value="Mash Sweet Potato (2oz)">Mash Sweet Potato (2oz)</option>
+            <option value="Baked Sweet Potato (2oz)">Baked Sweet Potato (2oz)</option>
+            <option value="Quinoa (2oz)">Quinoa (2oz)</option>
+            <option value="Wild Rice (2oz)">Wild Rice (2oz)</option>
+            <option value="Mash Potato (2oz)">Mash Potato (2oz)</option>
+          </select>
+        </div>
+        <div class="selector-wrapper js product-form__item">
+          <label class="product-details__item-label">Vegetables</label>
+          <select required class="required" id="vegetables" name="properties[Vegetables]" class="product-form__variants no-js">
+            <option value="Asparagus (3oz)">Asparagus (3oz)</option>
+            <option value="Brocoli (3oz)">Brocoli (3oz)</option>
+            <option value="Green Beans (3oz)">Green Beans (3oz)</option>
+            <option value="Bell Pepper (3oz)">Bell Pepper (3oz)</option>
+            <option value="Mix Vegetale (3oz)">Mix Vegetale (3oz)</option>
+          </select>
+        </div>
+      {% endif %}
 
 
 
@@ -235,9 +258,7 @@
             {% endif %}
 
 
-            <div class="product-single__description rte">
-              {{ product.description }}
-            </div>
+
 
 
 
@@ -323,6 +344,7 @@
 
 
 {% schema %}
+
 {
   "name": {
     "da": "Produktsider",
@@ -369,8 +391,7 @@
         "zh-TW": "顯示數量選擇器"
       },
       "default": false
-    },
-    {
+    }, {
       "type": "checkbox",
       "id": "show_variant_labels",
       "label": {
@@ -394,8 +415,7 @@
         "zh-TW": "顯示子類選項標籤"
       },
       "default": true
-    },
-    {
+    }, {
       "type": "checkbox",
       "id": "show_vendor",
       "label": {
@@ -419,8 +439,7 @@
         "zh-TW": "顯示廠商"
       },
       "default": false
-    },
-    {
+    }, {
       "type": "checkbox",
       "id": "enable_payment_button",
       "label": {
@@ -464,8 +483,7 @@
         "zh-TW": "每位顧客都可以在您商店內開放使用的付款方式中看見他們偏好使用的方式，如 PayPal、Apple Pay 等。[深入瞭解](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
       },
       "default": true
-    },
-    {
+    }, {
       "type": "checkbox",
       "id": "show_share_buttons",
       "label": {
@@ -489,8 +507,7 @@
         "zh-TW": "顯示社群分享按鈕"
       },
       "default": true
-    },
-    {
+    }, {
       "type": "header",
       "content": {
         "da": "Medie",
@@ -532,8 +549,7 @@
         "zh-CN": "详细了解[媒体类型](https://help.shopify.com/manual/products/product-media)",
         "zh-TW": "深入瞭解 [媒體類型](https://help.shopify.com/manual/products/product-media)"
       }
-    },
-    {
+    }, {
       "type": "select",
       "id": "media_size",
       "label": {
@@ -579,8 +595,7 @@
             "zh-CN": "小",
             "zh-TW": "小型"
           }
-        },
-        {
+        }, {
           "value": "medium",
           "label": {
             "da": "Medium",
@@ -602,8 +617,7 @@
             "zh-CN": "中等",
             "zh-TW": "中等"
           }
-        },
-        {
+        }, {
           "value": "large",
           "label": {
             "da": "Stor",
@@ -625,8 +639,7 @@
             "zh-CN": "大",
             "zh-TW": "大型"
           }
-        },
-        {
+        }, {
           "value": "full",
           "label": {
             "da": "Fuld bredde",
@@ -651,8 +664,7 @@
         }
       ],
       "default": "medium"
-    },
-    {
+    }, {
       "type": "checkbox",
       "id": "enable_image_zoom",
       "label": {
@@ -676,8 +688,7 @@
         "zh-TW": "啟用圖片縮放"
       },
       "default": true
-    },
-    {
+    }, {
       "type": "checkbox",
       "id": "enable_video_looping",
       "label": {
@@ -704,4 +715,5 @@
     }
   ]
 }
+
 {% endschema %}
