@@ -202,8 +202,10 @@
      {% if meal_type == 'lean' %}
         <div class="selector-wrapper js product-form__item">
           <label class="product-details__item-label">Carbohydrates</label>
+          <div id="carb-details"></div>
           <select required class="required" id="carbohydrates" name="properties[Carbohydrates]" class="product-form__variants no-js">
-            <option value="Jazmine Rice (2oz)">Jazmine Rice (2oz)</option>
+            <option value="">Select One …</option>
+            <option value="Jazmine Rice (2oz)" data-option="jazmine">Jazmine Rice (2oz)</option>
             <option value="Brown Rice (2oz)">Brown Rice (2oz)</option>
             <option value="Mash Sweet Potato (2oz)">Mash Sweet Potato (2oz)</option>
             <option value="Baked Sweet Potato (2oz)">Baked Sweet Potato (2oz)</option>
@@ -211,10 +213,12 @@
             <option value="Wild Rice (2oz)">Wild Rice (2oz)</option>
             <option value="Mash Potato (2oz)">Mash Potato (2oz)</option>
           </select>
+
         </div>
         <div class="selector-wrapper js product-form__item">
           <label class="product-details__item-label">Vegetables</label>
           <select required class="required" id="vegetables" name="properties[Vegetables]" class="product-form__variants no-js">
+            <option value="">Select One …</option>
             <option value="Asparagus (3oz)">Asparagus (3oz)</option>
             <option value="Brocoli (3oz)">Brocoli (3oz)</option>
             <option value="Green Beans (3oz)">Green Beans (3oz)</option>
