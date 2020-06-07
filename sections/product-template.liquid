@@ -8,7 +8,11 @@
   {% comment %}
     Get first variant, or deep linked one
   {% endcomment %}
-  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {% if product.variants.size > 1 %}
+  {% assign current_variant = product.selected_variant %}
+{% else %}
+  {% assign current_variant = product.first_available_variant %}
+{% endif %}
   {%- assign product_image_zoom_size = '1024x1024' -%}
   {%- assign product_image_scale = '2' -%}
   {%- assign enable_image_zoom = section.settings.enable_image_zoom -%}
@@ -180,14 +184,18 @@
             {% unless product.has_only_default_variant %}
               <div class="product-form__controls-group">
                 {% for option in product.options_with_values %}
+
                   <div class="selector-wrapper js product-form__item">
+
                     <label class="product-details__item-label" {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
+
                       {{ option.name }}
                     </label>
                     <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input"
                       id="SingleOptionSelector-{{ forloop.index0 }}"
                       data-index="option{{ forloop.index }}"
                     >
+
                       {% for value in option.values %}
                         <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
                       {% endfor %}
@@ -234,7 +242,7 @@
             <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
               {% for variant in product.variants %}
                 <option value="{{ variant.id }}"
-                  {%- if variant == current_variant %} selected="selected" {%- endif -%}
+
                 >
                   {{ variant.title }}  {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
                 </option>
@@ -721,3 +729,54 @@
 }
 
 {% endschema %}
+
+<script>
+  var productOptions = [];
+    {% for option in product.options %}
+    var optionObj = {};
+    optionObj[ {{ forloop.index0 }} ] = "{{ product.options[forloop.index0] }}";
+    productOptions.push(optionObj);
+    {% endfor %}
+
+    console.log('My custom JS is working');
+
+const sideOptions = {
+  carbohydrates: {
+    jazmineRice: {
+      protein: 1,
+      carbs: 11.2,
+      fat: 0,
+      calories: 51,
+    },
+  },
+  vegetables: {},
+};
+
+const selectCarbElement = document.querySelector('#carbohydrates');
+
+selectCarbElement.addEventListener('change', (event) => {
+  const result = document.querySelector('#carb-details');
+  if (event.target.value === '') {
+    result.textContent = `Choose one option`;
+  } else {
+    result.innerHTML = `<span>${event.target.value}</span>
+    <div>
+    Protein: ${sideOptions.carbohydrates.jazmineRice.protein}
+    </div>
+    <div>
+    Carbs: ${sideOptions.carbohydrates.jazmineRice.carbs}
+    </div>
+    <div>
+    Fat: ${sideOptions.carbohydrates.jazmineRice.fat}
+    </div>
+    <div>
+    Calories: ${sideOptions.carbohydrates.jazmineRice.calories}
+    </div>
+    `;
+  }
+  console.log(
+    event.target.options[event.target.options.selectedIndex].dataset.option
+  );
+});
+
+  </script>
