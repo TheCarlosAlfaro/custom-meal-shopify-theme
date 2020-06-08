@@ -5391,7 +5391,7 @@ theme.Cart = (function () {
     },
 
     _createCart: function (state) {
-      console.log(state);
+      // console.log(state);
       var cartDiscountList = this._createCartDiscountList(state);
 
       $(selectors.cartLineItems, this.$container).html(
@@ -7050,7 +7050,8 @@ theme.Product = (function () {
           .attr('aria-disabled', true)
           .attr('aria-label', theme.strings.unavailable);
         $(this.selectors.addToCartText, this.$container).text(
-          theme.strings.unavailable
+          // theme.strings.unavailable
+          'Select Options'
         );
         $(this.selectors.productForm, this.container).addClass(
           this.classes.variantSoldOut

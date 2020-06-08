@@ -280,7 +280,10 @@
 
 
 
-                <h1 class="min-5-message {% if cart.item_count > 4 %} {{"hide"}} {% endif %}">Yo! we only accept orders with a minimun of 5 meals</h1>
+                <div class="min-5-message {% if cart.item_count > 4 %} {{"hide"}} {% endif %}">
+                  <span>Add more meals to your cart</span>
+                  <h4>We only accept orders with a minimum of 5 meals. </h4>
+                </div>
 
 
                 <input type="submit" name="checkout"
@@ -326,6 +329,7 @@
 
 
 {% schema %}
+
 {
   "name": {
     "da": "Side med indkøbskurv",
@@ -392,8 +396,7 @@
         "zh-TW": "在顧客進行變更時立即更新購物車"
       },
       "default": true
-    },
-    {
+    }, {
       "type": "checkbox",
       "id": "cart_notes_enable",
       "label": {
@@ -420,4 +423,5 @@
     }
   ]
 }
+
 {% endschema %}
