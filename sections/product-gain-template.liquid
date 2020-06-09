@@ -201,7 +201,7 @@
                         <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
                       {% endfor %}
                     </select>
-
+                    <div id="protein-details"></div>
                   </div>
                   {% endfor %}
                 </div>
@@ -209,6 +209,34 @@
 
 
 
+
+        <div class="selector-wrapper js product-form__item">
+          <label class="product-details__item-label">Carbohydrates</label>
+
+          <select required class="required" id="carbohydrates" name="properties[Carbohydrates]" class="product-form__variants no-js">
+            <option value="">Select One …</option>
+            <option value="Jazmine Rice (4oz)" data-option="jazmineRice">Jazmine Rice (2oz)</option>
+            <option value="Brown Rice (4oz)" data-option="brownRice">Brown Rice (2oz)</option>
+            <option value="Mash Sweet Potato (4oz)" data-option="mashSweetPotato">Mash Sweet Potato (2oz)</option>
+            <option value="Baked Sweet Potato (4oz)" data-option="bakedSweetPotato">Baked Sweet Potato (2oz)</option>
+            <option value="Quinoa (4oz)" data-option="quinoa">Quinoa (2oz)</option>
+            <option value="Wild Rice (4oz)" data-option="wildRice">Wild Rice (2oz)</option>
+            <option value="Mash Potato (4oz)" data-option="mashPotato">Mash Potato (2oz)</option>
+          </select>
+          <div id="carb-details"></div>
+        </div>
+        <div class="selector-wrapper js product-form__item">
+          <label class="product-details__item-label">Vegetables</label>
+          <select required class="required" id="vegetables" name="properties[Vegetables]" class="product-form__variants no-js">
+            <option value="">Select One …</option>
+            <option value="Asparagus (4oz)" data-option="asparagus">Asparagus (3oz)</option>
+            <option value="Brocoli (4oz)" data-option="broccoli">Broccoli (3oz)</option>
+            <option value="Green Beans (4oz)" data-option="greenBeans">Green Beans (3oz)</option>
+            <option value="Bell Pepper (4oz)" data-option="bellPepper">Bell Pepper (3oz)</option>
+            <option value="Mix Vegetable (4oz)" data-option="mixVegetable">Mix Vegetable (3oz)</option>
+          </select>
+          <div id="veggies-details"></div>
+        </div>
 
 
 
@@ -704,3 +732,216 @@
 }
 
 {% endschema %}
+
+<script>
+  var productOptions = [];
+    {% for option in product.options %}
+    var optionObj = {};
+    optionObj[ {{ forloop.index0 }} ] = "{{ product.options[forloop.index0] }}";
+    productOptions.push(optionObj);
+    {% endfor %}
+
+    console.log('My custom JS is working');
+
+const proteinDetails = [
+ "Choose one option",
+ {
+  optionName: "Grill Chicken",
+  protein: 36,
+  carbs: 0,
+  fat: 7,
+  calories: 170,
+ },
+ {
+  optionName: "Grill Steak",
+  protein: 33,
+  carbs: 0,
+  fat: 15,
+  calories: 285,
+ },
+ {
+  optionName: "Ground Turkey",
+  protein: 32,
+  carbs: 0,
+  fat: 12,
+  calories: 255,
+ },
+ {
+  optionName: "Ground Beef",
+  protein: 35,
+  carbs: 0,
+  fat: 18,
+  calories: 304,
+ },
+ {
+  optionName: "Tilapia",
+  protein: 35,
+  carbs: 0,
+  fat: 3,
+  calories: 165,
+ },
+ {
+  optionName: "Shrimp",
+  protein: 24,
+  carbs: 0,
+  fat: 6,
+  calories: 120,
+ },
+ {
+  optionName: "Salmon",
+  protein: 35,
+  carbs: 0,
+  fat: 14,
+  calories: 270,
+ },
+]
+
+const carbohydratesDetails = [
+"Choose one option",
+     {
+      optionName: "Jazmine Rice",
+      protein: 2,
+      carbs: 22.5,
+      fat: 0,
+      calories: 102,
+    },
+   {
+    optionName: "Brown Rice",
+      protein: 2.6,
+      carbs: 25.8,
+      fat: 1.1,
+      calories: 124,
+    },
+    {
+      optionName: "Mash Sweet Potato",
+      protein: 2.3,
+      carbs: 23.5,
+      fat: 0.2,
+      calories: 100,
+    },
+    {
+      optionName: "Baked Sweet Potato",
+      protein: 2.3,
+      carbs: 23.5,
+      fat: 0.2,
+      calories: 102,
+    },
+    {
+      optionName: "Quinoa",
+      protein: 16,
+      carbs: 72.8,
+      fat: 6.9,
+      calories: 417,
+    },
+    {
+      optionName: "Wild Rice",
+      protein: 3.2,
+      carbs: 17.5,
+      fat: 0.3,
+      calories: 83,
+    },
+    {
+      optionName: "Mash Potato",
+      protein: 3.6,
+      carbs: 24,
+      fat: 2.6,
+      calories: 88,
+    },
+  ]
+
+const vegetablesDetails = [
+"Choose one option",
+    {
+      optionName: "Asparagus",
+      protein: 2.5,
+      carbs: 4.4,
+      fat: 0.1,
+      calories: 23,
+    },
+    {
+      optionName: "Broccoli",
+      protein: 1.2,
+      carbs: 2.9,
+      fat: 0.2,
+      calories: 15,
+    },
+    {
+      optionName: "greenBeans",
+      protein: 2.1,
+      carbs: 7.2,
+      fat: 0.2,
+      calories: 35,
+    },
+    {
+      optionName: "bellPepper",
+      protein: 0.8,
+      carbs: 4.6,
+      fat: 0,
+      calories: 19,
+    },
+    {
+      optionName: "mixVegetable",
+      protein: 2.2,
+      carbs: 3.5,
+      fat: 0.6,
+      calories: 32,
+    },
+  ]
+
+
+const selectCarbElement = document.querySelector('#carbohydrates');
+const selectVeggiesElement = document.querySelector('#vegetables');
+const selectProteinElement = document.querySelector('#SingleOptionSelector-0');
+
+selectCarbElement.addEventListener('change', renderOptionDetails);
+selectVeggiesElement.addEventListener('change', renderOptionDetails);
+selectProteinElement.addEventListener('change', renderOptionDetails);
+
+
+function renderOptionDetails() {
+  const optionCategory = this.id;
+  const selectedOption = this.options.selectedIndex;
+  let renderCategoryContainer = undefined;
+
+  switch (optionCategory) {
+    case "carbohydrates":
+      renderCategoryContainer = '#carb-details';
+      optionDetailData = carbohydratesDetails;
+      break;
+    case "vegetables":
+      renderCategoryContainer = '#veggies-details';
+      optionDetailData = vegetablesDetails;
+      break;
+    case "SingleOptionSelector-0":
+      renderCategoryContainer = '#protein-details';
+      optionDetailData = proteinDetails;
+      break;
+    default:
+      console.log('no matching container ID...')
+      break;
+  }
+
+  const result = document.querySelector(renderCategoryContainer);
+console.log(selectedOption)
+  if (selectedOption === 0) {
+    result.innerHTML = `<p>Choose one option</p>`;
+  } else {
+    result.innerHTML = `<span><strong><sm>Details</sm></strong></span>
+    <div>
+    Protein: ${optionDetailData[selectedOption].protein}
+    </div>
+    <div>
+    Carbs: ${optionDetailData[selectedOption].carbs}
+    </div>
+    <div>
+    Fat: ${optionDetailData[selectedOption].fat}
+    </div>
+    <div>
+    Calories: ${optionDetailData[selectedOption].calories}
+    </div>
+    `;
+  }
+
+}
+
+  </script>

@@ -1,0 +1,44 @@
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+<h1>Gain</h1>
+{% section 'product-gain-template' %}
+
+{% section 'product-recommendations' %}
+
+
+{% if collection %}
+  <div class="text-center return-link-wrapper page-width">
+    <a href="{{ collection.url }}" class="btn btn--secondary btn--has-icon-before return-link">
+      {% include 'icon-arrow-left' %}
+      {{ 'products.product.back_to_collection' | t: title: collection.title }}
+    </a>
+  </div>
+{% endif %}
+
+<script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  }
+</script>
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<script type="application/ld+json">
+
+
+[36mLine: 2[0m
+[31m(empty line)[0m
+[31m(empty line)[0m
+[31m[36mLine: 1[0m[0m
+[31m[31m[36 mLine : 1 [[0m[0m
+[31m[31m        0 m [[0m[0m
+[31m[31m            31 m {[0m[0m
+[31m[31m                [[0m[0m
+
+</script>
