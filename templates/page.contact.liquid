@@ -9,7 +9,24 @@
         <div class="rte">
           {{ page.content }}
         </div>
-      {% endif %}
+        {% endif %}
+        <div class="contact-info">
+          <div class="contact-element">
+            <img src="https://cdn.shopify.com/s/files/1/0267/7951/6986/files/Phone.png?v=1595193403" alt="" srcset="">
+            <a href="tel:+17028845780">702-884-5780</a>
+          </div>
+          <div class="contact-element">
+            <img src="https://cdn.shopify.com/s/files/1/0267/7951/6986/files/email.png?v=1595193403" alt="" srcset="">
+            <a href="mailto:info@bodyfitmealpreplv.com">info@bodyfitmealpreplv.com</a>
+          </div>
+          <div class="contact-element">
+            <img src="https://cdn.shopify.com/s/files/1/0267/7951/6986/files/Place.png?v=1595193403" alt="" srcset="">
+
+            <p>2987 Las Vegas Blvd. Suite #19 <br> 4D Commissary #5 <br>
+              NV 89030</p>
+          </div>
+
+        </div>
 
       <div class="contact-form form-vertical">
         {%- assign formId = 'ContactForm' -%}
@@ -56,6 +73,10 @@
           <input type="submit" class="btn" value="{{ 'contact.form.submit' | t }}">
 
         {% endform %}
+        <div class="black-banner">
+          <h3>Orders for Delivery Monday, you can order Sunday before 3:00pm</h3>
+          <h3>Orders for Delivery Thursday, you can order Wednesday before 3:00pm</h3>
+          </div>
       </div>
     </div>
   </div>
