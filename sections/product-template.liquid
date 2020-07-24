@@ -190,6 +190,7 @@
                     <label class="product-details__item-label" {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
 
                       {{ option.name }}
+
                     </label>
 
                     <select class="protein-choice single-option-selector single-option-selector-{{ section.id }} product-form__input"
@@ -198,6 +199,7 @@
                     >
 
                       {% for value in option.values %}
+
                         <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
                       {% endfor %}
                     </select>
@@ -704,3 +706,11 @@
 }
 
 {% endschema %}
+<script>
+  var productOptions = [];
+    {% for option in product.options %}
+    var optionObj = {};
+    optionObj[ {{ forloop.index0 }} ] = "{{ product.options[forloop.index0] }}";
+    productOptions.push(optionObj);
+    {% endfor %}
+    </script>
